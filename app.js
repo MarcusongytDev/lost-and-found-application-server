@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const usersRouter = require('./routes/users');
+const lostItemPostsRouter = require('./routes/lostItemPosts');
+const foundItemPostsRouter = require('./routes/foundItemPosts');
+const searchFiltersRouter = require('./routes/searchFilters');
 
 const app = express();
 const port = process.env.PORT || 5000;
