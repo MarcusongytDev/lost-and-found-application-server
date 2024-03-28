@@ -1,5 +1,8 @@
-const { uploadData, getData, getFilteredData, getLostItemsData } = require("../FirebaseServices/FirebaseService");
+const { uploadData, getData, getFilteredData, getLostItemsData, uploadLostItem } = require("../FirebaseServices/FirebaseService");
+//Test dummy data, DELETE when real data from frontend
+const { dummyLostItem } = require("./dummyData");
 
+// handler routes all API calls from app.js to the required function call
 async function handler(req, method) {
       try {
           if (method === "GET") {
@@ -31,9 +34,18 @@ async function handler(req, method) {
                   return JSON.stringify(data);
               }
 
-  
-              return "Hello Get";
+              if (path === "/upload-lost-item") {
+                  console.log(uploadLostItem);
+                  //console.log(dummyLostItem);
+                  await uploadLostItem(dummyLostItem);
+                  return "Success";
+              }
+
+
+              return "UNSUCCESSFUL";
           }
+
+
 
       //     if (method === "POST") {
 

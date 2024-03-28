@@ -91,6 +91,7 @@ const uploadData = async () => {
       }
 };
 
+// Get all Lost Items from the lost-items collection in the database
 const getLostItemsData = async (from, to) => {
       try {
             const collectionRef = collection(firestoreDb, "lost-items");
@@ -103,6 +104,19 @@ const getLostItemsData = async (from, to) => {
                   finalData.push(doc.data());
             });
             return finalData;
+      } catch (error) {
+            console.log(error);
+      }
+};
+
+// Upload a lost item into the lost-item collection in the database
+const uploadLostItem = async (data) => {
+      console.log(data);
+      const dataToUpload = data;
+      try {
+            const document = doc(firestoreDb, "lost-items", Date.now().toString(36) + Math.random().toString(36).slice(2));
+            let dataUpdated = await setDoc(document, dataToUpload);
+            return dataUpdated;
       } catch (error) {
             console.log(error);
       }
@@ -121,4 +135,5 @@ module.exports = {
       getData,
       getFilteredData,
       getLostItemsData,
+      uploadLostItem,
 };
