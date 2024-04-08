@@ -15,22 +15,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const firestoreDb = getFirestore();
 
+//--------------------------- Above is Firebase Initialisation ---------------------------//
+//--------------------------------- Below are API Calls ----------------------------------//
+
 async function getLostItems(req, res, next) {
       try {
+            //specify collection to query
             const collectionRef = collection(firestoreDb, "lost-items");
+            //empty finalData array
             const finalData = [];
+            //query the collection
             const q = query(collectionRef);
-
+            //docSnap is the document
             const docSnap = await getDocs(q);
 
+            //push all data in docSnap into finalData array
             docSnap.forEach((doc) => {
                   finalData.push(doc.data());
             });
+            //return the response in json format
             res.json({
                   status:"success",
                   data: finalData
             });
-            //return finalData
+
       } catch (error) {
             console.log(error);
       }
