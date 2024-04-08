@@ -1,0 +1,3 @@
+# Prevent unauthorized use and access of keys and sensitive information
+node_modules
+.env
