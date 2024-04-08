@@ -4,6 +4,7 @@ const router = express.Router();
 const {
       getLostItems,
       postLostItem,
+      postLostItemNotice,
 } = require("../dao/ApplicationService");
 
 // Debugging tool: Displays any routed function performed by this routes file
@@ -18,6 +19,7 @@ router.get("/get-lost-items", getLostItems);
 
 router.post("/post-lost-item", postLostItem);
 
+router.post("/post-lost-item-notice", postLostItemNotice)
 
 
 module.exports = router;
