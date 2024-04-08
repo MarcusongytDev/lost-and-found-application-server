@@ -1,5 +1,6 @@
 const { initializeApp } = require("firebase/app");
 const { getFirestore, collection, getDocs, doc, setDoc, query, where } = require("firebase/firestore");
+const { generateUniqueID } = require("../utils/utils");
 
 const firebaseConfig = {
       apiKey: "AIzaSyD-xeDTjRMpcdjhMNBUcBqpKbEYmbr_NyU",
@@ -37,30 +38,24 @@ async function getLostItems(req, res, next) {
 
 async function postLostItem(req, res, next) {
       try {
-            const body = req.body;
-            console.log(body.category);
-            res.send("Successful");
+            //generate unique id for new document in lost-items collection in database
+            const lostItemRefID = generateUniqueID();
+            console.log(lostItemRefID);
 
+            //populate item body to be pushed into the database
+            const lostItem = req.body;
+            console.log(lostItem);
 
-            const collectionRef = collection(firestoreDb, "lost-items");
+            //create a document in lost-item collection and set the document body
+            const document = doc(firestoreDb, "lost-items", lostItemRefID);
+            let dataUpdated = await setDoc(document, lostItem);
 
+            res.send(dataUpdated);
       } catch (error) {
-            console.log(error);
+            console.log(error)
+            console.log("Unable to post lost item");
       }
 }
-
-// const uploadLostItem = async (data) => {
-//       console.log(data);
-//       const dataToUpload = data;
-//       try {
-//             const document = doc(firestoreDb, "lost-items", Date.now().toString(36) + Math.random().toString(36).slice(2));
-//             let dataUpdated = await setDoc(document, dataToUpload);
-//             return dataUpdated;
-//       } catch (error) {
-//             console.log(error);
-//       }
-// };
-
 
 
 module.exports = {
