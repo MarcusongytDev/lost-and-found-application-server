@@ -1,5 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 const {
       getLostItems,
@@ -17,7 +20,7 @@ router.use(function(req, res, next) {
 
 router.get("/get-lost-items", getLostItems);
 
-router.post("/post-lost-item", postLostItem);
+router.post("/post-lost-item", upload.single('photo'), postLostItem);
 
 router.post("/post-lost-item-notice", postLostItemNotice)
 
