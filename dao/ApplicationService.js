@@ -6,6 +6,8 @@ const { firebaseConfig } = require("../config/config");
 
 const app = initializeApp(firebaseConfig);
 const firestoreDb = getFirestore();
+// Initialize and get reference to cloud storage
+const storage = getStorage();
 
 //--------------------------- Above is Firebase Initialisation ---------------------------//
 //--------------------------------- Below are API Calls ----------------------------------//
@@ -40,6 +42,12 @@ async function postLostItem(req, res, next) {
             //generate unique id for new document in lost-items collection in database
             const lostItemRefID = generateUniqueID();
             console.log(lostItemRefID);
+
+      // STOPPED HERE //
+            // if (req.body.photo != null) {
+            //       const dateTime = Date.now().toString(36);
+            //       const storageRef = ref(storage, `lost-items-images/${req.body.photo}`)
+            // }
 
             //populate item body to be pushed into the database
             const lostItem = req.body;
