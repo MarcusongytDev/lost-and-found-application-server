@@ -3,7 +3,7 @@
 ## To run the server:
 ### install all required packages and run : `npm run dev`
 
-## Required Packages to be installed :
+## Required Package Dependecies to be installed :
 
 ### Express.js : `npm install express`
 ### Cors : `npm install cors`
@@ -11,3 +11,6 @@
 ### Dotenv : `npm install dotenv`
 ### Multer : `npm install multer`
 ### Google Gemini : `npm install @google/generative-ai`
+
+### Developer dependencies :\
+#### Nodemon for restarting server on save: `npm install nodemon`
