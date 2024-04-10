@@ -5,6 +5,7 @@ const { generateUniqueID } = require("../utils/utils");
 const { firebaseConfig } = require("../config/config");
 const multer = require("multer");
 const { generateItemTags } = require("./GeminiAITaggingService");
+const { sendEmail } = require("./MailingService");
 
 
 const app = initializeApp(firebaseConfig);
@@ -37,6 +38,61 @@ async function getLostItems(req, res, next) {
             res.json({
                   allLostItems
             });
+
+      } catch (error) {
+            console.log(error);
+      }
+};
+
+async function getLostItemNotices() {
+      try {
+            const collectionRef = collection(firestoreDb, "lost-item-notices");
+            const allLostItemNotices = [];
+            const q = query(collectionRef);
+            const docSnap = await getDocs(q);
+
+            docSnap.forEach((doc) => {
+                  allLostItemNotices.push(doc.data());
+            });
+
+            return allLostItemNotices;
+      } catch (error) {
+            console.log(error);
+      }
+};
+
+async function checkForMatch(allLostItemNotices, lostItem) {
+
+      //array of notices that match the lostItem's tags
+      let matchedNotices = [];
+
+      try {
+            //for all lost item notice in allLostItemNotices array
+            for (notice in allLostItemNotices) {
+                  //console.log(allLostItemNotices[notice]);
+                  //set a match count as 0
+                  let matchCount = 0;
+                  // for each itemFilter tag in the lost item notice
+                  for (noticeTag in allLostItemNotices[notice].itemFilters) {
+                        // for each itemFilter tag in the posted lost item
+                        for (itemTag in lostItem.itemFilters) {
+                              //console.log(allLostItemNotices[notice].itemFilters[noticeTag]);
+                              // increment the matchCount by1 if the item tag is matched
+                              if (lostItem.itemFilters[itemTag] == allLostItemNotices[notice].itemFilters[noticeTag]) {
+                                    matchCount++;
+                              }
+                        }
+                  }
+                  // if the matched tags are more than or equal to 4, log a match
+                  if (matchCount >= 4) {
+                        //console.log("Matched!");
+                        matchedNotices.push(allLostItemNotices[notice]);
+                  } else {
+                        //console.log("No match");
+                  }
+            }
+
+            return(matchedNotices);
 
       } catch (error) {
             console.log(error);
@@ -90,6 +146,15 @@ async function postLostItem(req, res, next) {
             //create a document in lost-item collection and set the document body
             const document = doc(firestoreDb, "lost-items", lostItemRefID);
             let dataUpdated = await setDoc(document, lostItem);
+
+
+            // lost item notice matching
+            const lostItemNotices = await getLostItemNotices();
+            const matchedNotices = await checkForMatch(lostItemNotices, lostItem);
+            // console.log(matchedNotices);
+
+            // Send Email to all matched notices
+            await sendEmail(lostItem, matchedNotices, req.file);
 
             res.send({
                   dataUpdated,

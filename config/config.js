@@ -11,6 +11,15 @@ const firebaseConfig = {
       measurementId: process.env.FIREBASE_MEASUREMENT_ID
     };
 
+const gmailConfig = {
+      service : 'gmail',
+      auth : {
+            user: process.env.GMAIL_EMAIL,
+            pass: process.env.GMAIL_PASSWORD
+      }
+}
+
 module.exports = {
-      firebaseConfig
+      firebaseConfig,
+      gmailConfig
 };

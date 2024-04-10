@@ -12,8 +12,6 @@ const {
       postLostItemNotice,
 } = require("../dao/ApplicationService");
 
-
-
 //------Debugging tool: Displays any routed function performed by this routes file------//
 router.use(function(req, res, next) {
       console.log(req.url, "@", Date.now());
@@ -26,7 +24,7 @@ router.get("/get-lost-items", getLostItems);
 
 router.post("/post-lost-item", upload.single('photo'), postLostItem);
 
-router.post("/post-lost-item-notice", postLostItemNotice)
+router.post("/post-lost-item-notice", postLostItemNotice);
 
 
 module.exports = router;
