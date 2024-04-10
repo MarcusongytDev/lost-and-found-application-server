@@ -5,9 +5,9 @@
 
 ## Required Packages to be installed :
 
-### Express.js : `npm install express`\
-### cors : `npm install cors`\
-### Firebase : `npm install firebase`\
-### dotenv: 'npm install dotenv`\
-### multer: `npm install multer`\
-### Gemini: `npm install @google/generative-ai`
+### Express.js : `npm install express`
+### Cors : `npm install cors`
+### Firebase : `npm install firebase`
+### Dotenv: 'npm install dotenv`
+### Multer: `npm install multer`
+### Google Gemini: `npm install @google/generative-ai`
