@@ -131,7 +131,7 @@ async function postLostItem(req, res, next) {
 
             // try to use Gemini's AI to tag image item
             try {
-                  // Get Gemini's AI generated tags for the item asynchronusly before appending to lostItem
+                  // Get Gemini's AI generated tags for the item asynchronusly before appending to lostItemNotice
                   let GeminiItemTags = await generateItemTags(req.file, req.file.mimetype);
                   console.log(GeminiItemTags);
 
@@ -178,6 +178,20 @@ async function postLostItemNotice(req, res, next) {
             //populate item body to be pushed into the database
             const lostItemNotice = req.body;
             console.log(lostItemNotice);
+
+            // try to use Gemini's AI to tag image item
+            try {
+                  // Get Gemini's AI generated tags for the item asynchronusly before appending to lostItem
+                  let GeminiItemTags = await generateItemTags(req.file, req.file.mimetype);
+                  console.log(GeminiItemTags);
+
+                  // Add Gemini's AI generated tags to the lostItemNotice as a property
+                  lostItemNotice.itemFilters = GeminiItemTags;
+                  console.log(lostItemNotice);
+            } catch (error) {
+                  console.log("Gemini unable to generate filters.");
+                  console.log(error);
+            }
 
             //create a document in lost-item collection and set the document body
             const document = doc(firestoreDb, "lost-item-notices", lostItemNoticeRefID);

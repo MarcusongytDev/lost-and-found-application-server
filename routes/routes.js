@@ -24,7 +24,7 @@ router.get("/get-lost-items", getLostItems);
 
 router.post("/post-lost-item", upload.single('photo'), postLostItem);
 
-router.post("/post-lost-item-notice", postLostItemNotice);
+router.post("/post-lost-item-notice", upload.single('photo'), postLostItemNotice);
 
 
 module.exports = router;
