@@ -11,6 +11,8 @@
 ### Dotenv : `npm install dotenv`
 ### Multer : `npm install multer`
 ### Google Gemini : `npm install @google/generative-ai`
+### Nodemailer : `npm install nodemailer`
+### Mailgen : `npm install mailgen`
 
 
 ### Developer dependencies :
