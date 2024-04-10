@@ -4,6 +4,8 @@ const { getStorage, ref, getDownloadURL, uploadBytesResumable } = require("fireb
 const { generateUniqueID } = require("../utils/utils");
 const { firebaseConfig } = require("../config/config");
 const multer = require("multer");
+const { generateItemTags } = require("./GeminiAITaggingService");
+
 
 const app = initializeApp(firebaseConfig);
 const firestoreDb = getFirestore();
@@ -43,7 +45,7 @@ async function getLostItems(req, res, next) {
 
 async function postLostItem(req, res, next) {
       try {
-            console.log(req.file);
+            //console.log(req.file);
             //generate unique id for new document in lost-items collection in database
             const lostItemRefID = generateUniqueID();
             console.log(lostItemRefID);
@@ -70,7 +72,20 @@ async function postLostItem(req, res, next) {
             //populate item body to be pushed into the database (with image url)
             const lostItem = req.body;
             lostItem["ImageURL"] = downloadURL;
-            console.log(lostItem);
+
+            // try to use Gemini's AI to tag image item
+            try {
+                  // Get Gemini's AI generated tags for the item asynchronusly before appending to lostItem
+                  let GeminiItemTags = await generateItemTags(req.file, req.file.mimetype);
+                  console.log(GeminiItemTags);
+
+                  // Add Gemini's AI generated tags to the lostItem as a property
+                  lostItem.itemFilters = GeminiItemTags;
+                  console.log(lostItem);
+            } catch (error) {
+                  console.log("Gemini unable to generate filters.");
+                  console.log(error);
+            }
 
             //create a document in lost-item collection and set the document body
             const document = doc(firestoreDb, "lost-items", lostItemRefID);
@@ -78,7 +93,7 @@ async function postLostItem(req, res, next) {
 
             res.send({
                   dataUpdated,
-                  message: "Image uploaded to firebase storage",
+                  message: "LostItem uploaded to firebase database, Image uploaded to firebase storage",
                   name: req.file.originalname,
                   type: req.file.mimetype,
                   downloadURL: downloadURL,
@@ -105,7 +120,7 @@ async function postLostItemNotice(req, res, next) {
 
             res.send(dataUpdated);
       } catch (error) {
-            console.log(error)
+            console.log(error);
             console.log("Unable to post lost item notice");
       }
 }
