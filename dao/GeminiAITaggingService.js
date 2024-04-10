@@ -18,7 +18,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-pro-vision", generationC
 
 // Generate Content
 async function generateItemTags(file, imageMimeType) {
-      let limitedTries = 10
+      let limitedTries = 20
       while (limitedTries != 0) {
             try {
                   //console.log(file);
