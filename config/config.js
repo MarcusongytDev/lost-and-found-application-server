@@ -19,7 +19,14 @@ const gmailConfig = {
       }
 }
 
+function getRGeocodeAPI (lat,lng) {
+      return `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
+}
+//const googleMapsRGCodeAPI = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${LAT},${LNG}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
+
+
 module.exports = {
       firebaseConfig,
-      gmailConfig
+      gmailConfig,
+      getRGeocodeAPI,
 };

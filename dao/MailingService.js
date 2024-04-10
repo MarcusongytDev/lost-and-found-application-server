@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 const Mailgen = require("mailgen");
-const { gmailConfig } = require("../config/config");
+const { gmailConfig, getRGeocodeAPI } = require("../config/config");
 const { promises } = require("fs");
 const fs = promises;
 const dirPath = "tempImageFileHolder";
@@ -20,11 +20,19 @@ async function sendEmail(lostItem, matchedLostNotices, file) {
                   console.log("Image saved successfully");
             };
       });
-      const imagePath = internalImagePath;
+
+      // Set itemLocation to named address using reverse geocoding from Google Maps' API
+      let RGeocodeAPIURL = getRGeocodeAPI(lostItem["location"][1], lostItem["location"][2]);
+      let itemLocation = await fetch(RGeocodeAPIURL).then((res) => {
+            return res.json();
+      }).then( (data) => {
+            return data["results"][1]["formatted_address"];
+      }).catch( (error) => {
+            console.log(error);
+      })
 
       let itemName = lostItem["name"];
       let itemDescription = lostItem["description"];
-      let itemLocation = "location";
 
       for (notice in matchedLostNotices) {
 
