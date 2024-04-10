@@ -1,3 +1,19 @@
-Required Modules :
-Express.js : npm install express
-cors : npm install cors
+# Server side for Lost and Found Application
+
+## To run the server:
+### install all required packages and run : `npm run dev`
+
+## Required Package Dependecies to be installed :
+
+### Express.js : `npm install express`
+### Cors : `npm install cors`
+### Firebase : `npm install firebase`
+### Dotenv : `npm install dotenv`
+### Multer : `npm install multer`
+### Google Gemini : `npm install @google/generative-ai`
+### Nodemailer : `npm install nodemailer`
+### Mailgen : `npm install mailgen`
+
+
+### Developer dependencies :
+#### Nodemon for restarting server on save: `npm install nodemon`
