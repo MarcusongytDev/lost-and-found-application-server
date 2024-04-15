@@ -42,7 +42,7 @@ First, clone the repository into your local device, the directory should look so
 |   ├── utils
 ```
 
-Initialise your `.env` file. Check `.env.example` for the environment variables required.
+Initialise your `.env` file.
 
 You will require:
 
