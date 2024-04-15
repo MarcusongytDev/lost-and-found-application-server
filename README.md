@@ -6,14 +6,14 @@
 <img src="http://img.shields.io/badge/Javascript-fcd400?style=flat-square&logo=javascript&logoColor=black" alt="Javascript">
 <img src="https://img.shields.io/badge/Node.js-43853D?style=flat-square&logo=node.js&logoColor=white" alt="Node.js">
 <img src="https://img.shields.io/badge/Express.js-17202C?style=flat-square&logo=express" alt="Express.js">
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=flat-square" alt="Typescript">
 <img src="https://img.shields.io/badge/firebase-ffca28?style=flat-square&logo=firebase&logoColor=black" alt="Firebase">
 <img src="https://img.shields.io/badge/.ENV-ECD53F?logo=dotenv&logoColor=black&style=flat-square" alt=".env">
 <img src="https://img.shields.io/badge/Google%20Gemini-8E75B2?logo=googlegemini&logoColor=fff&style=flat-square" alt="Gemini">
 <img src="https://img.shields.io/badge/Google%20Maps-4285F4?logo=googlemaps&logoColor=fff&style=flat-square" alt="GoogleMaps">
-  <img src="https://img.shields.io/badge/Google%20Maps-4285F4?logo=googlemaps&logoColor=fff&style=flat-square" alt="GoogleMaps">
 </div>
 
-![Cover](./Documents/Diagrams/VIFitnessCover.png)
+![Cover](./Foraged-Logo.png)
 
 ### Team Members:
 
@@ -79,6 +79,7 @@ For developer dependencies, we recommend installing Nodemon for restarting serve
 ```
 npm i nodemon
 ```
+---
 
 ### Section 1: Introduction
 
