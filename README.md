@@ -13,7 +13,7 @@
 <img src="https://img.shields.io/badge/Google%20Maps-4285F4?logo=googlemaps&logoColor=fff&style=flat-square" alt="GoogleMaps">
 </div>
 
-<img src="./Foraged-Logo.png" alt="cover" style="width:200%;height:auto;">
+<img src="./Foraged-Logo.png" alt="cover" style="width:120%;height:auto;">
 
 ### Team Members:
 
